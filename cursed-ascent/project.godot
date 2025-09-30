@@ -14,3 +14,7 @@ config/name="Cursed Ascent"
 run/main_scene="uid://cbu1i02krro3t"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[physics]
+
+2d/default_gravity=2310.781
