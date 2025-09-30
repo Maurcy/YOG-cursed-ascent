@@ -2,7 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://b1x4p1aywc4am" path="res://scenes/platforms/platform_1.tscn" id="1_34u1c"]
 
-[node name="Platform1" instance=ExtResource("1_34u1c")]
+[node name="PlatformTransparent" instance=ExtResource("1_34u1c")]
+position = Vector2(-107, -14)
 
 [node name="ColorRect" parent="." index="0"]
 color = Color(1, 1, 1, 0.22352941)

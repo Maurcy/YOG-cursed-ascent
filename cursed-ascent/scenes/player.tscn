@@ -6,6 +6,7 @@
 size = Vector2(28, 70)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+z_index = -3
 script = ExtResource("1_3vyb7")
 
 [node name="ColorRect" type="ColorRect" parent="."]
