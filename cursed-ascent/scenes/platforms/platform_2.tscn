@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfeylvundmdwh"]
+
+[ext_resource type="PackedScene" uid="uid://b1x4p1aywc4am" path="res://scenes/platforms/platform_1.tscn" id="1_34u1c"]
+
+[node name="Platform1" instance=ExtResource("1_34u1c")]
+
+[node name="ColorRect" parent="." index="0"]
+color = Color(1, 1, 1, 0.22352941)
+
+[node name="CollisionShape2D" parent="." index="1"]
+one_way_collision = true
