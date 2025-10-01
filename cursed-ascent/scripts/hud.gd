@@ -11,3 +11,5 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float):
 	levelTimerDisplay.text = "Remaining time: " + str(snapped(game_manager.remainingLevelTime, 0.01))
+	if game_manager.timeUp:
+		levelTimerDisplay.text = "Time's up!"
