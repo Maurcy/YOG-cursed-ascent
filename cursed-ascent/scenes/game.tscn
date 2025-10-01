@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbu1i02krro3t"]
+[gd_scene load_steps=11 format=3 uid="uid://cbu1i02krro3t"]
 
+[ext_resource type="Script" uid="uid://qb6lsqm042jp" path="res://scripts/game_manager.gd" id="1_gee14"]
 [ext_resource type="PackedScene" uid="uid://dnjfp8rhkq27j" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://be33afmkbqp74" path="res://assets/world_tileset.png" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://b1x4p1aywc4am" path="res://scenes/platforms/platform_1.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://cfeylvundmdwh" path="res://scenes/platforms/platform_transparent.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://bxtaxeuencnbm" path="res://scenes/exit.tscn" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://djs8dqp02c6y" path="res://scenes/platforms/exitPlatform.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://busyccyttfgb4" path="res://hud.tscn" id="7_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("1_yqjtg")
@@ -178,6 +180,13 @@ sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 
 [node name="Game" type="Node2D"]
 
+[node name="gameManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_gee14")
+
+[node name="levelTimer" type="Timer" parent="gameManager"]
+wait_time = 45.0
+
 [node name="Temp" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_lbhrr")
 format = 2
@@ -192,6 +201,8 @@ position = Vector2(0, -27)
 limit_left = 0
 limit_right = 0
 limit_bottom = 0
+
+[node name="HUD" parent="CharacterBody2D" instance=ExtResource("7_u5sy4")]
 
 [node name="Platforms" type="Node" parent="."]
 
