@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cfeylvundmdwh" path="res://scenes/platforms/platform_transparent.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://bxtaxeuencnbm" path="res://scenes/exit.tscn" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://djs8dqp02c6y" path="res://scenes/platforms/exitPlatform.tscn" id="6_p57ef"]
-[ext_resource type="PackedScene" uid="uid://busyccyttfgb4" path="res://hud.tscn" id="7_u5sy4"]
+[ext_resource type="PackedScene" path="res://hud.tscn" id="7_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("1_yqjtg")
@@ -285,12 +285,6 @@ position = Vector2(-506, -449)
 position = Vector2(-503, -777)
 
 [node name="Platform20" parent="Platforms" instance=ExtResource("4_lbhrr")]
-position = Vector2(-503, -874)
-
-[node name="Platform21" parent="Platforms" instance=ExtResource("4_lbhrr")]
-position = Vector2(-503, -874)
-
-[node name="Platform28" parent="Platforms" instance=ExtResource("4_lbhrr")]
 position = Vector2(-503, -874)
 
 [node name="Platform29" parent="Platforms" instance=ExtResource("4_lbhrr")]
