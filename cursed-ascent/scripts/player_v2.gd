@@ -14,12 +14,16 @@ const HANG_VELOCITY_TRESHOLD = 40
 const FALL_GRAVITY_MULTIPLIER = 1.8
 const JUMP_CUT_MULTIPLIER = 0.4
 
+const COYOTE_TIME = 10.0
+var coyote_time = 0.0
 
 func _physics_process(delta: float) -> void:
-	# Gravity
-	if not is_on_floor():
+	# Gravity + Coyote time
+	if is_on_floor():
+		coyote_time = 0.0
+	else:
+		coyote_time += 1.0
 		var gravity_force = GRAVITY
-		
 		if velocity.y < 0: 
 			if abs(velocity.y) < HANG_VELOCITY_TRESHOLD:
 				gravity_force *= HANG_GRAVITY_MULTIPLIER
@@ -31,7 +35,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity_force * delta
 	
 	# Jumping
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or coyote_time < COYOTE_TIME):
 		velocity.y = JUMP_VELOCITY
 	
 	if Input.is_action_just_released("jump") and velocity.y < 0:

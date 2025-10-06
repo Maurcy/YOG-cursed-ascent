@@ -1,7 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnioplmshgiid"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tiwlm"]
-size = Vector2(161, 29)
+[gd_scene format=3 uid="uid://bnioplmshgiid"]
 
 [node name="Platform V2" type="StaticBody2D"]
 
@@ -11,12 +8,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -80.5
-offset_top = -14.5
-offset_right = 80.5
-offset_bottom = 14.5
+offset_left = -80.0
+offset_top = -15.0
+offset_right = 80.0
+offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_tiwlm")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(80, -15, 80, -9, 60, 15, -60, 15, -80, -9, -80, -15)
