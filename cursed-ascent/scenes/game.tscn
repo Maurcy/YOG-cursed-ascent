@@ -1,12 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cbu1i02krro3t"]
+[gd_scene load_steps=7 format=3 uid="uid://cbu1i02krro3t"]
 
 [ext_resource type="Script" uid="uid://qb6lsqm042jp" path="res://scripts/game_manager.gd" id="1_gee14"]
 [ext_resource type="PackedScene" uid="uid://dnjfp8rhkq27j" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://be33afmkbqp74" path="res://assets/world_tileset.png" id="1_yqjtg"]
-[ext_resource type="PackedScene" uid="uid://b1x4p1aywc4am" path="res://scenes/platforms/platform_1.tscn" id="3_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://cfeylvundmdwh" path="res://scenes/platforms/platform_transparent.tscn" id="4_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://bxtaxeuencnbm" path="res://scenes/exit.tscn" id="5_iywne"]
-[ext_resource type="PackedScene" uid="uid://djs8dqp02c6y" path="res://scenes/platforms/exitPlatform.tscn" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://busyccyttfgb4" path="res://hud.tscn" id="7_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
@@ -204,106 +200,5 @@ limit_right = 0
 limit_bottom = 0
 
 [node name="HUD" parent="CharacterBody2D" instance=ExtResource("7_u5sy4")]
-
-[node name="Platforms" type="Node" parent="."]
-
-[node name="Platform1" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(125, -101)
-
-[node name="Platform6" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(315, -206)
-
-[node name="Platform7" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(315, -206)
-
-[node name="Platform5" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(-161, -382)
-
-[node name="Platform13" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(-161, -382)
-
-[node name="Platform14" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(99, -495)
-
-[node name="Platform23" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(-117, -806)
-
-[node name="Platform27" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(-301, -912)
-
-[node name="Platform31" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(-299, -860)
-
-[node name="Platform30" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(-298, -965)
-
-[node name="Platform24" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(318, -613)
-
-[node name="Platform25" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(110, -719)
-
-[node name="Platform26" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(309, -893)
-
-[node name="Platform10" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(-508, -358)
-
-[node name="Platform12" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(-357, -550)
-
-[node name="Platform17" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(-503, -654)
-
-[node name="Platform18" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(-503, -654)
-
-[node name="Platform9" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(312, -360)
-
-[node name="Platform15" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(312, -360)
-
-[node name="Platform2" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(-516, -226)
-
-[node name="Platform3" parent="Platforms" instance=ExtResource("3_lnu2h")]
-position = Vector2(-321, -143)
-
-[node name="ExitPlatform" parent="Platforms" instance=ExtResource("6_p57ef")]
-position = Vector2(-67, -1025)
-
-[node name="Exit" parent="Platforms" instance=ExtResource("5_iywne")]
-position = Vector2(-24, -1145)
-
-[node name="Platform4" parent="Platforms" instance=ExtResource("4_lbhrr")]
-position = Vector2(-321, -265)
-
-[node name="Platform11" parent="Platforms" instance=ExtResource("4_lbhrr")]
-position = Vector2(-506, -449)
-
-[node name="Platform19" parent="Platforms" instance=ExtResource("4_lbhrr")]
-position = Vector2(-503, -777)
-
-[node name="Platform20" parent="Platforms" instance=ExtResource("4_lbhrr")]
-position = Vector2(-503, -874)
-
-[node name="Platform21" parent="Platforms" instance=ExtResource("4_lbhrr")]
-position = Vector2(-503, -874)
-
-[node name="Platform28" parent="Platforms" instance=ExtResource("4_lbhrr")]
-position = Vector2(-503, -874)
-
-[node name="Platform29" parent="Platforms" instance=ExtResource("4_lbhrr")]
-position = Vector2(307, -964)
-
-[node name="Platform22" parent="Platforms" instance=ExtResource("4_lbhrr")]
-position = Vector2(-499, -960)
-
-[node name="Platform8" parent="Platforms" instance=ExtResource("4_lbhrr")]
-position = Vector2(23, -268)
-
-[node name="Platform16" parent="Platforms" instance=ExtResource("4_lbhrr")]
-position = Vector2(176, -424)
 
 [connection signal="timeout" from="gameManager/levelTimer" to="gameManager" method="_on_level_timer_timeout"]
