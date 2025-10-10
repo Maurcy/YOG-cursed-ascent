@@ -7,7 +7,7 @@ var timeUp = false;
 
 const ROOM_WIDTH := 362
 const ROOM_HEIGHT := 362
-var level_origin := Vector2(-400, -1800)
+var level_origin := Vector2(-543, -1843)
 
 var room_variants = {}
 

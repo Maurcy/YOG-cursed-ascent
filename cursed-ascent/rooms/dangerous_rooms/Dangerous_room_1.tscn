@@ -3,9 +3,32 @@
 [node name="DangerousRoom1" type="Node2D"]
 
 [node name="Label" type="Label" parent="."]
-offset_left = 16.0
-offset_top = -217.0
-offset_right = 102.0
-offset_bottom = -10.0
+offset_left = 129.0
+offset_top = -294.0
+offset_right = 215.0
+offset_bottom = -87.0
 theme_override_font_sizes/font_size = 151
 text = "3"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_top = -9.0
+offset_right = 362.0
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+offset_top = -362.0
+offset_right = 362.0
+offset_bottom = -353.0
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 9.0
+offset_top = -362.0
+offset_right = 371.0
+offset_bottom = -353.0
+rotation = 1.5707964
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+offset_left = 362.0
+offset_top = -362.0
+offset_right = 724.0
+offset_bottom = -353.0
+rotation = 1.5707964
