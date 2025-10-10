@@ -4,9 +4,10 @@ var remainingLevelTime
 var timeUp = false;
 @onready var levelTimer: Timer = $levelTimer
 
-#
-const ROOM_WIDTH := 160
-const ROOM_HEIGHT := 160
+
+const ROOM_WIDTH := 362
+const ROOM_HEIGHT := 362
+var level_origin := Vector2(-400, -1800)
 
 var room_variants = {}
 
@@ -42,6 +43,8 @@ func preload_rooms():
 	}
 
 	for type in folder_map.keys():
+		room_variants[type] = []
+
 		var path = base_path + folder_map[type]
 		var dir = DirAccess.open(path)
 		if dir:
@@ -52,6 +55,7 @@ func preload_rooms():
 					room_variants[type].append(load(path + "/" + file))
 				file = dir.get_next()
 			dir.list_dir_end()
+
 
 
 func get_random_room_scene(room_type: int) -> PackedScene:
@@ -69,8 +73,8 @@ func generate_level(grid: Array):
 				continue
 				
 			var room_scene = get_random_room_scene(room_type)
-			
+
 			if room_scene:
 				var instance = room_scene.instantiate()
-				instance.position = Vector2(x * ROOM_WIDTH, y * ROOM_HEIGHT)
+				instance.position = level_origin + Vector2(x * ROOM_WIDTH, (grid.size() - 1 - y) * ROOM_HEIGHT)
 				add_child(instance)
