@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dmixxfe7npb3i"]
+
+[node name="SafeRoom1" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 25.0
+offset_top = -289.0
+offset_right = 137.0
+offset_bottom = -21.0
+theme_override_font_sizes/font_size = 196
+text = "1"

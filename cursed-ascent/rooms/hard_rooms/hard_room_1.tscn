@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://t0t54gs7wc8e"]
+
+[node name="HardRoom1" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 27.0
+offset_top = -262.0
+offset_right = 130.0
+offset_bottom = -14.0
+theme_override_font_sizes/font_size = 181
+text = "2"

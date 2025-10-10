@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bq2qmk2etxuhv"]
+
+[node name="DangerousRoom1" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 16.0
+offset_top = -217.0
+offset_right = 102.0
+offset_bottom = -10.0
+theme_override_font_sizes/font_size = 151
+text = "3"

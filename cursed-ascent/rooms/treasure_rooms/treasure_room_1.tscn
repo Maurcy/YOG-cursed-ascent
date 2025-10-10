@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cjaaj80h3mtas"]
+
+[node name="TreasureRoom1" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 70.0
+offset_top = -319.0
+offset_right = 202.0
+offset_bottom = -4.0
+theme_override_font_sizes/font_size = 231
+text = "4"
