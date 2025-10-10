@@ -17,7 +17,7 @@ func _ready() -> void:
 	remainingLevelTime = levelTime
 	
 	preload_rooms()
-	var level_layout = LevelGenerator.generate_level()
+	var level_layout = LevelGenerator.generate_level(6)
 	generate_level(level_layout);
 
 # Called every frame. 'delta' is the e6lapsed time since the previous frame.
