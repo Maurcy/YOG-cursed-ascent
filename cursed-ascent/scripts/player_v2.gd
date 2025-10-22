@@ -1,47 +1,65 @@
 extends CharacterBody2D
 
 const GRAVITY = 3000.0
-const SPEED = 460.0
-const JUMP_VELOCITY = -1000.0
 
+const SPEED = 500.0
 const ACCELERATION = 2000.0
 const DECELERATION = 1500.0
 const BRAKE_ACCELERATION = 4000.0
 
+const JUMP_VELOCITY = -1000.0
 const JUMP_GRAVITY_MULTIPLIER = 0.7
-const HANG_GRAVITY_MULTIPLIER = 0.5  
-const HANG_VELOCITY_TRESHOLD = 40
+const HANG_GRAVITY_MULTIPLIER = 0.5
+const HANG_VELOCITY_THRESHOLD = 40.0
 const FALL_GRAVITY_MULTIPLIER = 1.8
 const JUMP_CUT_MULTIPLIER = 0.4
 
-const COYOTE_TIME = 10.0
-var coyote_time = 0.0
+const COYOTE_TIME_WINDOW = 0.1
+var coyoteTimeTimer := 0.0
+
+const JUMP_BUFFER_WINDOW = 0.05
+var jumpBufferTimer := 0.0
+
+func _ready() -> void:
+	# Engine.time_scale = 0.2
+	pass
 
 func _physics_process(delta: float) -> void:
-	# Gravity + Coyote time
-	if is_on_floor():
-		coyote_time = 0.0
+	# Timers
+	if not is_on_floor():
+		coyoteTimeTimer += delta
 	else:
-		coyote_time += 1.0
-		var gravity_force = GRAVITY
-		if velocity.y < 0: 
-			if abs(velocity.y) < HANG_VELOCITY_TRESHOLD:
-				gravity_force *= HANG_GRAVITY_MULTIPLIER
-			else:
-				gravity_force *= JUMP_GRAVITY_MULTIPLIER
-		else: 
-			gravity_force *= FALL_GRAVITY_MULTIPLIER
-		
-		velocity.y += gravity_force * delta
+		coyoteTimeTimer = 0.0
+	
+	if jumpBufferTimer > 0.0:
+		jumpBufferTimer -= delta
+	
+	# Gravity
+	var gravity_force := GRAVITY
+	if velocity.y < 0:
+		if abs(velocity.y) < HANG_VELOCITY_THRESHOLD:
+			gravity_force *= HANG_GRAVITY_MULTIPLIER
+		else:
+			gravity_force *= JUMP_GRAVITY_MULTIPLIER
+	else:
+		gravity_force *= FALL_GRAVITY_MULTIPLIER
+	
+	velocity.y += gravity_force * delta
+	
+	# Input
+	if Input.is_action_just_pressed("jump"):
+		jumpBufferTimer = JUMP_BUFFER_WINDOW
 	
 	# Jumping
-	if Input.is_action_just_pressed("jump") and (is_on_floor() or coyote_time < COYOTE_TIME):
+	if (is_on_floor() or coyoteTimeTimer < COYOTE_TIME_WINDOW) and jumpBufferTimer > 0.0:
 		velocity.y = JUMP_VELOCITY
+		coyoteTimeTimer = COYOTE_TIME_WINDOW
+		jumpBufferTimer = 0.0 
 	
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= JUMP_CUT_MULTIPLIER
 	
-	# Moving on ground
+	# Horizontal Movement
 	var direction := Input.get_axis("moveLeft", "moveRight")
 	if direction != 0:
 		if sign(direction) != sign(velocity.x) and velocity.x != 0:
