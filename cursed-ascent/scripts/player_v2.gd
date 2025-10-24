@@ -1,4 +1,5 @@
 extends CharacterBody2D
+@onready var text_edit: TextEdit = $TextEdit
 
 const GRAVITY = 3000.0
 
@@ -20,15 +21,26 @@ var coyoteTimeTimer := 0.0
 const JUMP_BUFFER_WINDOW = 0.05
 var jumpBufferTimer := 0.0
 
-func _ready() -> void:
+var extraJumps = 0
+var extraJumpAmount := 0
+
+func _ready():
 	# Engine.time_scale = 0.2
 	pass
 
+
 func _physics_process(delta: float) -> void:
+	extraJumps = text_edit.text.to_int()
+	
+	movement(delta)
+
+
+func movement(delta: float):
 	# Timers
 	if not is_on_floor():
 		coyoteTimeTimer += delta
 	else:
+		extraJumpAmount = extraJumps
 		coyoteTimeTimer = 0.0
 	
 	if jumpBufferTimer > 0.0:
@@ -48,6 +60,11 @@ func _physics_process(delta: float) -> void:
 	
 	# Input
 	if Input.is_action_just_pressed("jump"):
+		if (!is_on_floor() and extraJumpAmount > 0):
+			if (coyoteTimeTimer > COYOTE_TIME_WINDOW):
+				extraJumpAmount -= 1
+			velocity.y = JUMP_VELOCITY * 0.85
+		
 		jumpBufferTimer = JUMP_BUFFER_WINDOW
 	
 	# Jumping
@@ -55,6 +72,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		coyoteTimeTimer = COYOTE_TIME_WINDOW
 		jumpBufferTimer = 0.0 
+	
 	
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= JUMP_CUT_MULTIPLIER

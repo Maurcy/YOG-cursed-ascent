@@ -26,3 +26,15 @@ shape = SubResource("RectangleShape2D_u8vuu")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -100)
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = -556.0
+offset_top = -408.0
+offset_right = -422.0
+offset_bottom = -373.0
+text = "1"
+placeholder_text = "Extra Jumps"
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+tab_input_mode = false
