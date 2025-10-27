@@ -1,28 +1,32 @@
 extends CharacterBody2D
-@onready var text_edit: TextEdit = $TextEdit
 
-const GRAVITY = 3000.0
+@onready var extra_jump_input: TextEdit = $TextEdit
 
+# Movement
 const SPEED = 500.0
 const ACCELERATION = 2000.0
 const DECELERATION = 1500.0
 const BRAKE_ACCELERATION = 4000.0
 
-const JUMP_VELOCITY = -1000.0
+# Gravity 
+const GRAVITY = 3000.0
 const JUMP_GRAVITY_MULTIPLIER = 0.7
 const HANG_GRAVITY_MULTIPLIER = 0.5
 const HANG_VELOCITY_THRESHOLD = 40.0
 const FALL_GRAVITY_MULTIPLIER = 1.8
+
+# Jumping
+const JUMP_VELOCITY = -1000.0
 const JUMP_CUT_MULTIPLIER = 0.4
-
 const COYOTE_TIME_WINDOW = 0.1
-var coyoteTimeTimer := 0.0
-
 const JUMP_BUFFER_WINDOW = 0.05
-var jumpBufferTimer := 0.0
 
-var extraJumps = 0
-var extraJumpAmount := 0
+# Runtime state
+var coyote_time_timer := 0.0
+var jump_buffer_timer := 0.0
+var extra_jumps = 0
+var available_extra_jumps := 0
+
 
 func _ready():
 	# Engine.time_scale = 0.2
@@ -30,23 +34,30 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
-	extraJumps = text_edit.text.to_int()
-	
-	movement(delta)
+	update_jump_input()
+	handle_timers(delta)
+	apply_gravity(delta)
+	handle_jump_input()
+	handle_horizontal_movement(delta)
+	move_and_slide()
 
 
-func movement(delta: float):
-	# Timers
+func update_jump_input():
+	extra_jumps = extra_jump_input.text.to_int()
+	if Input.is_key_pressed(KEY_TAB):
+		extra_jump_input.release_focus()
+
+func handle_timers(delta: float):
 	if not is_on_floor():
-		coyoteTimeTimer += delta
+		coyote_time_timer += delta
 	else:
-		extraJumpAmount = extraJumps
-		coyoteTimeTimer = 0.0
+		available_extra_jumps = extra_jumps
+		coyote_time_timer = 0.0
 	
-	if jumpBufferTimer > 0.0:
-		jumpBufferTimer -= delta
-	
-	# Gravity
+	if jump_buffer_timer > 0.0:
+		jump_buffer_timer -= delta
+
+func apply_gravity(delta: float):
 	var gravity_force := GRAVITY
 	if velocity.y < 0:
 		if abs(velocity.y) < HANG_VELOCITY_THRESHOLD:
@@ -57,27 +68,28 @@ func movement(delta: float):
 		gravity_force *= FALL_GRAVITY_MULTIPLIER
 	
 	velocity.y += gravity_force * delta
-	
-	# Input
+
+func handle_jump_input():
+	# Mid Air Jumps
 	if Input.is_action_just_pressed("jump"):
-		if (!is_on_floor() and extraJumpAmount > 0):
-			if (coyoteTimeTimer > COYOTE_TIME_WINDOW):
-				extraJumpAmount -= 1
+		if (!is_on_floor() and available_extra_jumps > 0):
+			if (coyote_time_timer > COYOTE_TIME_WINDOW):
+				available_extra_jumps -= 1
 			velocity.y = JUMP_VELOCITY * 0.85
 		
-		jumpBufferTimer = JUMP_BUFFER_WINDOW
+		jump_buffer_timer = JUMP_BUFFER_WINDOW
 	
-	# Jumping
-	if (is_on_floor() or coyoteTimeTimer < COYOTE_TIME_WINDOW) and jumpBufferTimer > 0.0:
+	# Grounded Jumps
+	if (is_on_floor() or coyote_time_timer < COYOTE_TIME_WINDOW) and jump_buffer_timer > 0.0:
 		velocity.y = JUMP_VELOCITY
-		coyoteTimeTimer = COYOTE_TIME_WINDOW
-		jumpBufferTimer = 0.0 
+		coyote_time_timer = COYOTE_TIME_WINDOW
+		jump_buffer_timer = 0.0 
 	
-	
+	# Variable Jump Height
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= JUMP_CUT_MULTIPLIER
-	
-	# Horizontal Movement
+
+func handle_horizontal_movement(delta: float):
 	var direction := Input.get_axis("moveLeft", "moveRight")
 	if direction != 0:
 		if sign(direction) != sign(velocity.x) and velocity.x != 0:
@@ -86,5 +98,3 @@ func movement(delta: float):
 			velocity.x = move_toward(velocity.x, direction * SPEED, ACCELERATION * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, DECELERATION * delta)
-	
-	move_and_slide()
