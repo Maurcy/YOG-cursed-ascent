@@ -91,10 +91,12 @@ func handle_jump_input():
 
 func handle_horizontal_movement(delta: float):
 	var direction := Input.get_axis("moveLeft", "moveRight")
-	if direction != 0:
-		if sign(direction) != sign(velocity.x) and velocity.x != 0:
-			velocity.x = move_toward(velocity.x, direction * SPEED, BRAKE_ACCELERATION * delta)
-		else:
-			velocity.x = move_toward(velocity.x, direction * SPEED, ACCELERATION * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, DECELERATION * delta)
+	var target_speed := direction * SPEED
+	velocity.x = move_toward(velocity.x, target_speed, get_acceleration(delta, direction))
+
+func get_acceleration(delta: float, direction: float) -> float:
+	if direction == 0:
+		return DECELERATION * delta
+	if sign(direction) != sign(velocity.x):
+		return BRAKE_ACCELERATION * delta
+	return ACCELERATION * delta
