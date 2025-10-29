@@ -119,7 +119,7 @@ func do_ground_jump():
 
 func do_extra_jump():
 	available_extra_jumps -= 1
-	velocity.y = JUMP_VELOCITY * 0.85
+	velocity.y = JUMP_VELOCITY * pow(0.9, (extra_jumps - available_extra_jumps))
 
 
 func do_wall_jump():
