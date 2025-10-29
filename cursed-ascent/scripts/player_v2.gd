@@ -30,6 +30,12 @@ var dash_dir := 0
 var dash_timer := 0.0
 var dash_cooldown_timer := 0.0
 
+const WALL_JUMP_FORCE = 500.0
+
+var can_wall_jump = false
+var last_wall_dir = 0
+
+
 var coyote_time_timer := 0.0
 var jump_buffer_timer := 0.0
 var extra_jumps = 0
@@ -46,6 +52,7 @@ func _physics_process(delta: float) -> void:
 	handle_timers(delta)
 	apply_gravity(delta)
 	handle_jump_input()
+	handle_wall_jump_input()
 	handle_horizontal_movement(delta)
 	handle_dash(delta)
 	move_and_slide()
@@ -106,6 +113,23 @@ func handle_jump_input():
 		velocity.y *= JUMP_CUT_MULTIPLIER
 
 
+func handle_wall_jump_input():
+	if is_on_floor():
+		can_wall_jump = true
+		last_wall_dir = 0 
+	
+	if Input.is_action_just_pressed("jump") and can_wall_jump:
+		if is_on_wall() and not is_on_floor():
+			var wall_dir = get_wall_normal().x
+			
+			if wall_dir == last_wall_dir:
+				return
+			
+			velocity.x = WALL_JUMP_FORCE * wall_dir
+			velocity.y = JUMP_VELOCITY
+			last_wall_dir = wall_dir
+
+
 func handle_horizontal_movement(delta: float):
 	if is_dashing and dash_timer < DASH_CONTROL_LOCK:
 		return
@@ -125,11 +149,11 @@ func get_acceleration(delta: float, direction: float) -> float:
 	return ACCELERATION * delta
 
 
-func _input(event):
+func _input(_event):
 	if not dash_unlocked:
 		return
 	
-	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_SHIFT:
+	if Input.is_action_just_pressed("dash"):
 		_start_dash()
 
 
