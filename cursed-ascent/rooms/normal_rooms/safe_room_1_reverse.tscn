@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b203nk85qpadj"]
+[gd_scene load_steps=2 format=3 uid="uid://vramhtqgqp2h"]
 
-[ext_resource type="PackedScene" uid="uid://b1x4p1aywc4am" path="res://scenes/platforms/platform_1.tscn" id="1_u3d32"]
+[ext_resource type="PackedScene" uid="uid://b1x4p1aywc4am" path="res://scenes/platforms/platform_1.tscn" id="1_11hjb"]
 
 [node name="SafeRoom1" type="Node2D"]
 
@@ -27,8 +27,8 @@ offset_right = 724.0
 offset_bottom = -353.0
 rotation = 1.5707964
 
-[node name="Platform1" parent="." instance=ExtResource("1_u3d32")]
-position = Vector2(187, -83)
+[node name="Platform1" parent="." instance=ExtResource("1_11hjb")]
+position = Vector2(2, -87)
 
-[node name="Platform3" parent="." instance=ExtResource("1_u3d32")]
-position = Vector2(54, -286)
+[node name="Platform3" parent="." instance=ExtResource("1_11hjb")]
+position = Vector2(124, -284)
