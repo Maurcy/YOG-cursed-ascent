@@ -17,7 +17,7 @@ func _ready() -> void:
 	remainingLevelTime = levelTime
 	
 	preload_rooms()
-	var level_layout = LevelGenerator.generate_level(6)
+	var level_layout = LevelGenerator.generate_level(6, 3)
 	generate_level(level_layout);
 
 # Called every frame. 'delta' is the e6lapsed time since the previous frame.
@@ -36,6 +36,7 @@ func _on_level_timer_timeout() -> void:
 func preload_rooms():
 	var base_path = "res://rooms/"
 	var folder_map = {
+		LevelGenerator.spawn_room: "spawn_rooms",
 		LevelGenerator.normal_room: "normal_rooms",
 		LevelGenerator.hard_room: "hard_rooms",
 		LevelGenerator.dangerous_room: "dangerous_rooms",
@@ -78,3 +79,11 @@ func generate_level(grid: Array):
 				var instance = room_scene.instantiate()
 				instance.position = level_origin + Vector2(x * ROOM_WIDTH, (grid.size() - 1 - y) * ROOM_HEIGHT)
 				add_child(instance)
+	
+	
+
+# test button to show level generation
+func _on_button_pressed() -> void:
+	print("button pressed")
+	var level_layout = LevelGenerator.generate_level(6, 3)
+	generate_level(level_layout); # Replace with function body.
