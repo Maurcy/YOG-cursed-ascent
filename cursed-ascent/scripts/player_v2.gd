@@ -32,13 +32,13 @@ var dash_cooldown_timer := 0.0
 
 const WALL_JUMP_FORCE = 500.0
 
-var can_wall_jump = false
-var last_wall_dir = 0
+var wall_jump_unlocked := false
+var last_wall_dir := 0.0
 
 
 var coyote_time_timer := 0.0
 var jump_buffer_timer := 0.0
-var extra_jumps = 0
+var extra_jumps := 0
 var available_extra_jumps := 0
 
 
@@ -52,7 +52,6 @@ func _physics_process(delta: float) -> void:
 	handle_timers(delta)
 	apply_gravity(delta)
 	handle_jump_input()
-	handle_wall_jump_input()
 	handle_horizontal_movement(delta)
 	handle_dash(delta)
 	move_and_slide()
@@ -97,37 +96,40 @@ func apply_gravity(delta: float):
 
 
 func handle_jump_input():
-	if Input.is_action_just_pressed("jump"):
-		if (!is_on_floor() and available_extra_jumps > 0):
-			if (coyote_time_timer > COYOTE_TIME_WINDOW):
-				available_extra_jumps -= 1
-			velocity.y = JUMP_VELOCITY * 0.85
-		jump_buffer_timer = JUMP_BUFFER_WINDOW
+	if is_on_floor():
+		last_wall_dir = 0.0
 	
-	if (is_on_floor() or coyote_time_timer < COYOTE_TIME_WINDOW) and jump_buffer_timer > 0.0:
-		velocity.y = JUMP_VELOCITY
-		coyote_time_timer = COYOTE_TIME_WINDOW
-		jump_buffer_timer = 0.0 
+	if Input.is_action_just_pressed("jump"):
+		if is_on_wall() and not is_on_floor():
+			do_wall_jump()
+		elif is_on_floor() or coyote_time_timer < COYOTE_TIME_WINDOW:
+			do_ground_jump()
+		elif available_extra_jumps > 0:
+			do_extra_jump()
 	
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= JUMP_CUT_MULTIPLIER
 
 
-func handle_wall_jump_input():
-	if is_on_floor():
-		can_wall_jump = true
-		last_wall_dir = 0 
-	
-	if Input.is_action_just_pressed("jump") and can_wall_jump:
-		if is_on_wall() and not is_on_floor():
-			var wall_dir = get_wall_normal().x
-			
-			if wall_dir == last_wall_dir:
-				return
-			
-			velocity.x = WALL_JUMP_FORCE * wall_dir
-			velocity.y = JUMP_VELOCITY
-			last_wall_dir = wall_dir
+func do_ground_jump():
+	velocity.y = JUMP_VELOCITY
+	coyote_time_timer = COYOTE_TIME_WINDOW
+	jump_buffer_timer = 0.0
+
+
+func do_extra_jump():
+	available_extra_jumps -= 1
+	velocity.y = JUMP_VELOCITY * 0.85
+
+
+func do_wall_jump():
+	var wall_dir = get_wall_normal().x
+	if wall_dir == last_wall_dir:
+		return
+	velocity.x = WALL_JUMP_FORCE * wall_dir
+	velocity.y = JUMP_VELOCITY
+	last_wall_dir = wall_dir
+
 
 
 func handle_horizontal_movement(delta: float):
