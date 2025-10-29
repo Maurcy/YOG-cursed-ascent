@@ -22,11 +22,13 @@ const DASH_SPEED = 1400.0
 const DASH_DURATION = 0.05
 const DASH_CONTROL_LOCK = 0.03
 const DASH_DECEL_RATE = 10000.0
+const DASH_COOLDOWN = 1.0
 
 var dash_unlocked := true
 var is_dashing := false
 var dash_dir := 0
 var dash_timer := 0.0
+var dash_cooldown_timer := 0.0
 
 var coyote_time_timer := 0.0
 var jump_buffer_timer := 0.0
@@ -35,6 +37,7 @@ var available_extra_jumps := 0
 
 
 func _ready():
+	Engine.time_scale = 1.0
 	pass
 
 
@@ -64,6 +67,9 @@ func handle_timers(delta: float):
 	
 	if jump_buffer_timer > 0.0:
 		jump_buffer_timer -= delta
+	
+	if dash_cooldown_timer > 0.0:
+		dash_cooldown_timer -= delta
 
 
 func apply_gravity(delta: float):
@@ -131,6 +137,11 @@ func _start_dash():
 	if is_dashing:
 		return
 	
+	if dash_cooldown_timer > 0.0:
+		return
+	
+	dash_cooldown_timer = DASH_COOLDOWN
+	
 	var direction := Input.get_axis("moveLeft", "moveRight")
 	
 	if direction == 0:
@@ -141,6 +152,7 @@ func _start_dash():
 	is_dashing = true
 	dash_timer = 0.0
 	velocity.x = dash_dir * DASH_SPEED
+
 
 func handle_dash(delta: float):
 	if not is_dashing:
