@@ -24,16 +24,18 @@ const DASH_CONTROL_LOCK = 0.03
 const DASH_DECEL_RATE = 10000.0
 const DASH_COOLDOWN = 1.0
 
-var dash_unlocked := true
+@export var dash_unlocked := true
 var is_dashing := false
 var dash_dir := 0
 var dash_timer := 0.0
 var dash_cooldown_timer := 0.0
 
 const WALL_JUMP_FORCE = 500.0
+const WALL_SLIDE_MULTIPLIER = 0.1
 
-var wall_jump_unlocked := true
-var chain_wall_jump_unlocked := true
+@export var wall_jump_unlocked := true
+@export var chain_wall_jump_unlocked := true
+@export var wall_slide_unlocked := true
 var has_wall_jumped = false
 var last_wall_dir := 0.0
 
@@ -92,9 +94,22 @@ func apply_gravity(delta: float):
 		else:
 			gravity_force *= JUMP_GRAVITY_MULTIPLIER
 	else:
-		gravity_force *= FALL_GRAVITY_MULTIPLIER
+		if is_wall_sliding() and wall_slide_unlocked:
+			gravity_force *= FALL_GRAVITY_MULTIPLIER * WALL_SLIDE_MULTIPLIER
+		else:
+			gravity_force *= FALL_GRAVITY_MULTIPLIER
 	
 	velocity.y += gravity_force * delta
+
+
+func is_wall_sliding() -> bool:
+	var wall_dir := get_wall_normal().x
+	var direction := Input.get_axis("moveLeft", "moveRight")
+	
+	if is_on_wall() and wall_dir == -direction: 
+		return true
+	
+	return false
 
 
 func handle_jump_input():
