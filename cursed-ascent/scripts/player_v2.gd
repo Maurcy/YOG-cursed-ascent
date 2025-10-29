@@ -32,7 +32,9 @@ var dash_cooldown_timer := 0.0
 
 const WALL_JUMP_FORCE = 500.0
 
-var wall_jump_unlocked := false
+var wall_jump_unlocked := true
+var chain_wall_jump_unlocked := true
+var has_wall_jumped = false
 var last_wall_dir := 0.0
 
 
@@ -98,9 +100,10 @@ func apply_gravity(delta: float):
 func handle_jump_input():
 	if is_on_floor():
 		last_wall_dir = 0.0
+		has_wall_jumped = false
 	
 	if Input.is_action_just_pressed("jump"):
-		if is_on_wall() and not is_on_floor():
+		if is_on_wall() and not is_on_floor() and wall_jump_unlocked:
 			do_wall_jump()
 		elif is_on_floor() or coyote_time_timer < COYOTE_TIME_WINDOW:
 			do_ground_jump()
@@ -124,12 +127,17 @@ func do_extra_jump():
 
 func do_wall_jump():
 	var wall_dir = get_wall_normal().x
+	
+	if not chain_wall_jump_unlocked and has_wall_jumped:
+		return
+	
 	if wall_dir == last_wall_dir:
 		return
+	
 	velocity.x = WALL_JUMP_FORCE * wall_dir
 	velocity.y = JUMP_VELOCITY
 	last_wall_dir = wall_dir
-
+	has_wall_jumped = true
 
 
 func handle_horizontal_movement(delta: float):
