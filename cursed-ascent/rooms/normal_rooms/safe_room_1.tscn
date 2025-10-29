@@ -5,15 +5,18 @@
 [node name="SafeRoom1" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_top = -9.0
 offset_right = 362.0
 
 [node name="ColorRect4" type="ColorRect" parent="."]
+visible = false
 offset_top = -362.0
 offset_right = 362.0
 offset_bottom = -353.0
 
 [node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
 offset_left = 9.0
 offset_top = -362.0
 offset_right = 371.0
@@ -21,14 +24,15 @@ offset_bottom = -353.0
 rotation = 1.5707964
 
 [node name="ColorRect3" type="ColorRect" parent="."]
+visible = false
 offset_left = 362.0
 offset_top = -362.0
 offset_right = 724.0
 offset_bottom = -353.0
 rotation = 1.5707964
 
-[node name="Platform1" parent="." instance=ExtResource("1_u3d32")]
-position = Vector2(187, -83)
+[node name="Platform V2" parent="." instance=ExtResource("1_u3d32")]
+position = Vector2(249, -71)
 
-[node name="Platform3" parent="." instance=ExtResource("1_u3d32")]
-position = Vector2(54, -286)
+[node name="Platform V3" parent="." instance=ExtResource("1_u3d32")]
+position = Vector2(117, -282)
