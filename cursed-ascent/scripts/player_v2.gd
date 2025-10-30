@@ -42,7 +42,7 @@ var dash_cooldown_timer := 0.0
 const WALL_JUMP_FORCE = 500.0
 const WALL_SLIDE_MULTIPLIER = 0.1 
 const MAX_WALL_SLIDE_SPEED = 100.0
-const WALL_JUMP_FORGIVENESS_WINDOW = 0.5
+const WALL_JUMP_FORGIVENESS_WINDOW = 0.12
 
 var has_wall_jumped = false
 var last_wall_dir := 0.0
@@ -139,9 +139,13 @@ func handle_jump_input():
 			do_ground_jump()
 		last_wall_dir = 0.0
 		has_wall_jumped = false
+		wall_jump_forgiveness_timer = 0.0
+	
+	if is_on_wall() and not is_on_floor():
+		wall_jump_forgiveness_timer = WALL_JUMP_FORGIVENESS_WINDOW
 	
 	if Input.is_action_just_pressed("jump"):
-		if is_on_wall() and not is_on_floor() and wall_jump_unlocked:
+		if (is_on_wall() and not is_on_floor() and wall_jump_unlocked) or wall_jump_forgiveness_timer > 0.0:
 			do_wall_jump()
 		elif is_on_floor() or coyote_time_timer < COYOTE_TIME_WINDOW:
 			do_ground_jump()
@@ -176,6 +180,7 @@ func do_wall_jump():
 	velocity.y = JUMP_VELOCITY
 	last_wall_dir = wall_dir
 	has_wall_jumped = true
+	wall_jump_forgiveness_timer = 0.0
 
 
 func handle_horizontal_movement(delta: float):
