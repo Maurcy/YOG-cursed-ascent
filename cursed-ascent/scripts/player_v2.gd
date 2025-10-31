@@ -10,6 +10,7 @@ extends CharacterBody2D
 @export var jump_velocity_multiplier := 1.0
 @export var wall_jump_velocity_multiplier := 1.0
 @export var horizontal_speed_multiplier := 1.0
+@export var slow_falling_multiplier := 10.0
 
 const SPEED = 500.0
 const ACCELERATION = 2000.0
@@ -109,6 +110,9 @@ func apply_gravity(delta: float):
 			gravity_force *= JUMP_GRAVITY_MULTIPLIER
 	else:
 		gravity_force *= FALL_GRAVITY_MULTIPLIER
+		if Input.is_action_pressed("jump"):
+			gravity_force *= 1 / slow_falling_multiplier
+		
 		if is_wall_sliding() and wall_slide_unlocked:
 			gravity_force *= WALL_SLIDE_MULTIPLIER
 	
