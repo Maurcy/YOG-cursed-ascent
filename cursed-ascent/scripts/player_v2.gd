@@ -7,6 +7,10 @@ extends CharacterBody2D
 @export var chain_wall_jump_unlocked := true
 @export var wall_slide_unlocked := true
 
+@export var jump_velocity_multiplier := 1.0
+@export var wall_jump_velocity_multiplier := 1.0
+@export var horizontal_speed_multiplier := 1.0
+
 const SPEED = 500.0
 const ACCELERATION = 2000.0
 const DECELERATION = 1500.0
@@ -162,14 +166,14 @@ func handle_jump_input():
 
 
 func do_ground_jump():
-	velocity.y = JUMP_VELOCITY
+	velocity.y = JUMP_VELOCITY * jump_velocity_multiplier
 	coyote_time_timer = COYOTE_TIME_WINDOW
 	jump_buffer_timer = 0.0
 
 
 func do_extra_jump():
 	available_extra_jumps -= 1
-	velocity.y = JUMP_VELOCITY * pow(0.9, (extra_jumps - available_extra_jumps))
+	velocity.y = JUMP_VELOCITY * jump_velocity_multiplier * pow(0.9, (extra_jumps - available_extra_jumps))
 
 
 func do_wall_jump():
@@ -183,8 +187,8 @@ func do_wall_jump():
 		tried_wall_jump_but_failed = true
 		return
 	
-	velocity.x = WALL_JUMP_FORCE * wall_dir
-	velocity.y = JUMP_VELOCITY
+	velocity.x = WALL_JUMP_FORCE * wall_dir * wall_jump_velocity_multiplier
+	velocity.y = JUMP_VELOCITY * wall_jump_velocity_multiplier
 	last_wall_dir = wall_dir
 	has_wall_jumped = true
 	wall_jump_forgiveness_timer = 0.0
@@ -196,18 +200,18 @@ func handle_horizontal_movement(delta: float):
 		return
 	
 	var direction := Input.get_axis("moveLeft", "moveRight")
-	var target_speed := direction * SPEED
+	var target_speed := direction * SPEED * horizontal_speed_multiplier
 	velocity.x = move_toward(velocity.x, target_speed, get_acceleration(delta, direction))
 
 
 func get_acceleration(delta: float, direction: float) -> float:
 	if direction == 0:
-		return DECELERATION * delta
+		return DECELERATION * delta * horizontal_speed_multiplier
 	
 	if sign(direction) != sign(velocity.x):
-		return BRAKE_ACCELERATION * delta
+		return BRAKE_ACCELERATION * delta * horizontal_speed_multiplier
 	
-	return ACCELERATION * delta
+	return ACCELERATION * delta * horizontal_speed_multiplier
 
 
 func _input(_event):
