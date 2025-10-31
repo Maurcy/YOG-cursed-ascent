@@ -48,6 +48,7 @@ var has_wall_jumped = false
 var last_wall_dir := 0.0
 var was_wall_sliding := false
 var wall_jump_forgiveness_timer := 0.0
+var tried_wall_jump_but_failed = false
 
 
 
@@ -140,6 +141,7 @@ func handle_jump_input():
 		last_wall_dir = 0.0
 		has_wall_jumped = false
 		wall_jump_forgiveness_timer = 0.0
+		tried_wall_jump_but_failed = false
 	
 	if is_on_wall() and not is_on_floor():
 		wall_jump_forgiveness_timer = WALL_JUMP_FORGIVENESS_WINDOW
@@ -150,6 +152,9 @@ func handle_jump_input():
 		elif is_on_floor() or coyote_time_timer < COYOTE_TIME_WINDOW:
 			do_ground_jump()
 		elif available_extra_jumps > 0:
+			do_extra_jump()
+		
+		if tried_wall_jump_but_failed and available_extra_jumps > 0:
 			do_extra_jump()
 	
 	if Input.is_action_just_released("jump") and velocity.y < 0:
@@ -171,9 +176,11 @@ func do_wall_jump():
 	var wall_dir = get_wall_normal().x
 	
 	if not chain_wall_jump_unlocked and has_wall_jumped:
+		tried_wall_jump_but_failed = true
 		return
 	
 	if wall_dir == last_wall_dir:
+		tried_wall_jump_but_failed = true
 		return
 	
 	velocity.x = WALL_JUMP_FORCE * wall_dir
@@ -181,6 +188,7 @@ func do_wall_jump():
 	last_wall_dir = wall_dir
 	has_wall_jumped = true
 	wall_jump_forgiveness_timer = 0.0
+	tried_wall_jump_but_failed = false
 
 
 func handle_horizontal_movement(delta: float):
