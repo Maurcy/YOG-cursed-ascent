@@ -8,6 +8,7 @@ const normal_room = 1
 const hard_room = 2
 const dangerous_room = 3
 const treasure_room = 4
+const exit_room = 5
 
 static func generate_level(height: int, width: int):
 	var grid := []
