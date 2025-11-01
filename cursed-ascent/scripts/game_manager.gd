@@ -84,7 +84,8 @@ func generate_level(grid: Array):
 	# generates exit
 	var exit_scene = get_random_room_scene(5)
 	var exit = exit_scene.instantiate()
-	var exit_height = level_origin.y - ROOM_HEIGHT - 100
+	# height gets added at the beginning of the level, on top of the top room, with 20 pixels wiggle room
+	var exit_height = level_origin.y - ROOM_HEIGHT - 20
 	exit.position = Vector2(0 , exit_height)
 	add_child(exit)
 
