@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbu1i02krro3t"]
+[gd_scene load_steps=7 format=3 uid="uid://cbu1i02krro3t"]
 
-[ext_resource type="PackedScene" uid="uid://goftnmuj8iye" path="res://scenes/game_manager.tscn" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dnjfp8rhkq27j" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://be33afmkbqp74" path="res://assets/world_tileset.png" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://da4v0o5w6qr83" path="res://scripts/player_v2.gd" id="4_iywne"]
@@ -176,9 +175,6 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 
 [node name="Game" type="Node2D"]
-
-[node name="gameManager" parent="." instance=ExtResource("1_lbhrr")]
-unique_name_in_owner = true
 
 [node name="Temp" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_lbhrr")
