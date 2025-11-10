@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cbu1i02krro3t"]
 
-[ext_resource type="Script" uid="uid://qb6lsqm042jp" path="res://scripts/game_manager.gd" id="1_gee14"]
+[ext_resource type="PackedScene" uid="uid://goftnmuj8iye" path="res://scenes/game_manager.tscn" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dnjfp8rhkq27j" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://be33afmkbqp74" path="res://assets/world_tileset.png" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://busyccyttfgb4" path="res://hud.tscn" id="7_u5sy4"]
@@ -176,30 +176,8 @@ sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 
 [node name="Game" type="Node2D"]
 
-[node name="gameManager" type="Node" parent="."]
+[node name="gameManager" parent="." instance=ExtResource("1_lbhrr")]
 unique_name_in_owner = true
-script = ExtResource("1_gee14")
-
-[node name="levelTimer" type="Timer" parent="gameManager"]
-wait_time = 45.0
-one_shot = true
-
-[node name="Button" type="Button" parent="gameManager"]
-visible = false
-offset_left = 234.0
-offset_top = -146.0
-offset_right = 443.0
-offset_bottom = -95.0
-toggle_mode = true
-action_mode = 0
-
-[node name="Label" type="Label" parent="gameManager/Button"]
-layout_mode = 0
-offset_left = 33.0
-offset_top = 14.0
-offset_right = 166.0
-offset_bottom = 37.0
-text = "Regenerate Level"
 
 [node name="Temp" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_lbhrr")
@@ -217,6 +195,3 @@ limit_right = 0
 limit_bottom = 0
 
 [node name="HUD" parent="CharacterBody2D" instance=ExtResource("7_u5sy4")]
-
-[connection signal="timeout" from="gameManager/levelTimer" to="gameManager" method="_on_level_timer_timeout"]
-[connection signal="pressed" from="gameManager/Button" to="gameManager" method="_on_button_pressed"]
