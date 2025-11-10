@@ -1,5 +1,5 @@
 extends Node
-var levelTime = 20
+var levelTime = 15
 var remainingLevelTime
 var timeUp = false;
 @onready var levelTimer: Timer = $levelTimer
