@@ -137,5 +137,7 @@ offset_right = 8.0
 offset_bottom = 8.0
 
 [connection signal="show_upgrade_ui" from="UpgradesManager" to="UpgradeUi" method="show_upgrades"]
+[connection signal="update_jumps" from="UpgradesManager" to="Player" method="_on_upgrades_manager_update_jumps"]
+[connection signal="update_wall_jump" from="UpgradesManager" to="Player" method="_on_upgrades_manager_update_wall_jump"]
 [connection signal="upgrade_selected" from="UpgradeUi" to="UpgradesManager" method="apply_upgrade"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
