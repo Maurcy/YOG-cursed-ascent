@@ -1,25 +1,22 @@
-[gd_scene format=3 uid="uid://t0t54gs7wc8e"]
+[gd_scene load_steps=2 format=3 uid="uid://t0t54gs7wc8e"]
+
+[ext_resource type="PackedScene" uid="uid://b1x4p1aywc4am" path="res://scenes/platforms/platform_1.tscn" id="1_cm3q0"]
 
 [node name="HardRoom1" type="Node2D"]
 
-[node name="Label" type="Label" parent="."]
-offset_left = 118.0
-offset_top = -312.0
-offset_right = 221.0
-offset_bottom = -64.0
-theme_override_font_sizes/font_size = 181
-text = "2"
-
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_top = -9.0
 offset_right = 362.0
 
 [node name="ColorRect4" type="ColorRect" parent="."]
+visible = false
 offset_top = -362.0
 offset_right = 362.0
 offset_bottom = -353.0
 
 [node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
 offset_left = 9.0
 offset_top = -362.0
 offset_right = 371.0
@@ -27,8 +24,13 @@ offset_bottom = -353.0
 rotation = 1.5707964
 
 [node name="ColorRect3" type="ColorRect" parent="."]
+visible = false
 offset_left = 362.0
 offset_top = -362.0
 offset_right = 724.0
 offset_bottom = -353.0
+rotation = 1.5707964
+
+[node name="Platform V3" parent="." instance=ExtResource("1_cm3q0")]
+position = Vector2(300, -221)
 rotation = 1.5707964

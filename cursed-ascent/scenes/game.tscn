@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbu1i02krro3t"]
+[gd_scene load_steps=8 format=3 uid="uid://cbu1i02krro3t"]
 
 [ext_resource type="PackedScene" uid="uid://goftnmuj8iye" path="res://scenes/game_manager.tscn" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dnjfp8rhkq27j" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://be33afmkbqp74" path="res://assets/world_tileset.png" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://da4v0o5w6qr83" path="res://scripts/player_v2.gd" id="4_iywne"]
 [ext_resource type="PackedScene" uid="uid://busyccyttfgb4" path="res://hud.tscn" id="7_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
@@ -187,6 +188,7 @@ layer_0/tile_data = PackedInt32Array(-3, 196608, 0, -2, 196608, 0, -1, 196608, 0
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_uwrxv")]
 z_index = 3
 position = Vector2(4, -50)
+script = ExtResource("4_iywne")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 position = Vector2(0, -27)

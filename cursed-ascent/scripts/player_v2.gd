@@ -59,7 +59,8 @@ func _physics_process(delta: float) -> void:
 
 
 func update_jump_input():
-	extra_jumps = extra_jump_input.text.to_int()
+	# temp uit gecomment
+	# extra_jumps = extra_jump_input.text.to_int()
 	
 	if Input.is_key_pressed(KEY_TAB):
 		extra_jump_input.release_focus()

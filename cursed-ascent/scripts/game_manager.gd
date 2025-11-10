@@ -20,7 +20,7 @@ func _ready() -> void:
 	var level_layout = LevelGenerator.generate_level(6, 3)
 	generate_level(level_layout);
 
-# Called every frame. 'delta' is the e6lapsed time since the previous frame.
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and levelTimer.is_stopped() and timeUp == false:
 		levelTimer.start()
@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 func _on_level_timer_timeout() -> void:
 	timeUp = true
 
-
+# Preloads rooms so the level generation knows what rooms to pick from
 func preload_rooms():
 	var base_path = "res://rooms/"
 	var folder_map = {
@@ -40,7 +40,7 @@ func preload_rooms():
 		LevelGenerator.normal_room: "normal_rooms",
 		LevelGenerator.hard_room: "hard_rooms",
 		LevelGenerator.dangerous_room: "dangerous_rooms",
-		LevelGenerator.treasure_room: "treasure_rooms"
+		LevelGenerator.exit_room: "exit_rooms"
 	}
 
 	for type in folder_map.keys():
@@ -79,11 +79,17 @@ func generate_level(grid: Array):
 				var instance = room_scene.instantiate()
 				instance.position = level_origin + Vector2(x * ROOM_WIDTH, (grid.size() - 1 - y) * ROOM_HEIGHT)
 				add_child(instance)
-	
-	
+				
+	# generates exit
+	var exit_scene = get_random_room_scene(4)
+	var exit = exit_scene.instantiate()
+	# height gets added at the beginning of the level, on top of the top room, with 20 pixels wiggle room
+	var exit_height = level_origin.y - ROOM_HEIGHT - 20
+	exit.position = Vector2(0 , exit_height)
+	add_child(exit)
 
 # test button to show level generation
 func _on_button_pressed() -> void:
 	print("button pressed")
 	var level_layout = LevelGenerator.generate_level(6, 3)
-	generate_level(level_layout); # Replace with function body.
+	generate_level(level_layout); 

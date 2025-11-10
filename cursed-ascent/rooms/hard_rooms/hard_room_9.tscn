@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://do45xqggv2urx"]
+[gd_scene load_steps=2 format=3 uid="uid://g4c5xydxujrc"]
 
-[ext_resource type="PackedScene" uid="uid://b1x4p1aywc4am" path="res://scenes/platforms/platform_1.tscn" id="1_kesfr"]
+[ext_resource type="PackedScene" uid="uid://b1x4p1aywc4am" path="res://scenes/platforms/platform_1.tscn" id="1_3aeok"]
 
-[node name="SafeRoom1" type="Node2D"]
+[node name="HardRoom1" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -31,5 +31,12 @@ offset_right = 724.0
 offset_bottom = -353.0
 rotation = 1.5707964
 
-[node name="Platform V2" parent="." instance=ExtResource("1_kesfr")]
-position = Vector2(176, -188)
+[node name="Platform V3" parent="." instance=ExtResource("1_3aeok")]
+position = Vector2(319, -226)
+rotation = 1.5707964
+scale = Vector2(0.32132354, 0.9218013)
+
+[node name="Platform V4" parent="." instance=ExtResource("1_3aeok")]
+position = Vector2(41, -179)
+rotation = 1.5707964
+scale = Vector2(2.000001, 1)

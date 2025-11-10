@@ -1,25 +1,23 @@
-[gd_scene format=3 uid="uid://bq2qmk2etxuhv"]
+[gd_scene load_steps=3 format=3 uid="uid://bq2qmk2etxuhv"]
+
+[ext_resource type="PackedScene" uid="uid://dkfyrtn0somoh" path="res://scenes/platforms/platform_spikes.tscn" id="1_sqqsx"]
+[ext_resource type="PackedScene" uid="uid://cfeylvundmdwh" path="res://scenes/platforms/platform_transparent.tscn" id="2_cdk7p"]
 
 [node name="DangerousRoom1" type="Node2D"]
 
-[node name="Label" type="Label" parent="."]
-offset_left = 129.0
-offset_top = -294.0
-offset_right = 215.0
-offset_bottom = -87.0
-theme_override_font_sizes/font_size = 151
-text = "3"
-
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_top = -9.0
 offset_right = 362.0
 
 [node name="ColorRect4" type="ColorRect" parent="."]
+visible = false
 offset_top = -362.0
 offset_right = 362.0
 offset_bottom = -353.0
 
 [node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
 offset_left = 9.0
 offset_top = -362.0
 offset_right = 371.0
@@ -27,8 +25,19 @@ offset_bottom = -353.0
 rotation = 1.5707964
 
 [node name="ColorRect3" type="ColorRect" parent="."]
+visible = false
 offset_left = 362.0
 offset_top = -362.0
 offset_right = 724.0
 offset_bottom = -353.0
 rotation = 1.5707964
+
+[node name="Platform V3" parent="." instance=ExtResource("1_sqqsx")]
+position = Vector2(108, -285)
+scale = Vector2(-1, 1)
+
+[node name="PlatformTransparent" parent="." instance=ExtResource("2_cdk7p")]
+position = Vector2(271, -197)
+
+[node name="PlatformTransparent2" parent="." instance=ExtResource("2_cdk7p")]
+position = Vector2(269, -53)

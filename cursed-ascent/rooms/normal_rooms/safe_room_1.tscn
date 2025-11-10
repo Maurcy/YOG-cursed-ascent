@@ -31,12 +31,8 @@ offset_right = 724.0
 offset_bottom = -353.0
 rotation = 1.5707964
 
-[node name="Platform1" parent="." instance=ExtResource("1_u3d32")]
-position = Vector2(6, -76)
+[node name="Platform V2" parent="." instance=ExtResource("1_u3d32")]
+position = Vector2(249, -71)
 
-[node name="Platform2" parent="." instance=ExtResource("1_u3d32")]
-position = Vector2(191, -202)
-scale = Vector2(0.73171884, 0.93706733)
-
-[node name="Platform3" parent="." instance=ExtResource("1_u3d32")]
-position = Vector2(1, -319)
+[node name="Platform V3" parent="." instance=ExtResource("1_u3d32")]
+position = Vector2(117, -282)
