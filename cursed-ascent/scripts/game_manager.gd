@@ -40,7 +40,6 @@ func preload_rooms():
 		LevelGenerator.normal_room: "normal_rooms",
 		LevelGenerator.hard_room: "hard_rooms",
 		LevelGenerator.dangerous_room: "dangerous_rooms",
-		LevelGenerator.treasure_room: "treasure_rooms",
 		LevelGenerator.exit_room: "exit_rooms"
 	}
 
@@ -82,7 +81,7 @@ func generate_level(grid: Array):
 				add_child(instance)
 				
 	# generates exit
-	var exit_scene = get_random_room_scene(5)
+	var exit_scene = get_random_room_scene(4)
 	var exit = exit_scene.instantiate()
 	# height gets added at the beginning of the level, on top of the top room, with 20 pixels wiggle room
 	var exit_height = level_origin.y - ROOM_HEIGHT - 20
