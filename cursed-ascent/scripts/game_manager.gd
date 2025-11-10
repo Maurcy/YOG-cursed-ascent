@@ -2,6 +2,7 @@ extends Node
 var levelTime = 15
 var remainingLevelTime
 var timeUp = false;
+var startdisplay = true;
 @onready var levelTimer: Timer = $levelTimer
 
 
@@ -24,6 +25,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and levelTimer.is_stopped() and timeUp == false:
 		levelTimer.start()
+		startdisplay = false;
 		
 	if levelTimer.is_stopped() == false:	
 		remainingLevelTime = levelTimer.time_left
@@ -93,3 +95,8 @@ func _on_button_pressed() -> void:
 	print("button pressed")
 	var level_layout = LevelGenerator.generate_level(6, 3)
 	generate_level(level_layout); 
+
+# pause timer and other stuff for level exit	
+func levelexit() -> void:
+	# go to shop scene
+	levelTimer.paused = true;

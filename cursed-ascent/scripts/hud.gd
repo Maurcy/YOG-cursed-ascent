@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @onready var levelTimerDisplay: Label = $Control/levelTimerDisplay
+@onready var game_start_text: Label = $Control/gameStartText
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,3 +24,10 @@ func _process(delta: float):
 	
 	if GameManager.timeUp:
 		levelTimerDisplay.text = "Time's up!"
+	
+	if GameManager.startdisplay == true:
+		game_start_text.visible = true
+		levelTimerDisplay.visible = false
+	else:
+		game_start_text.visible = false
+		levelTimerDisplay.visible = true

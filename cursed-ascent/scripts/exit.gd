@@ -11,4 +11,4 @@ func _on_body_exited(body: Node2D) -> void:
 	
 func _process(delta: float):
 	if Input.is_action_just_pressed("jump") and playerAtExit:
-		get_tree().reload_current_scene()
+		GameManager.levelexit()

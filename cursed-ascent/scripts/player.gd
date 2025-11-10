@@ -3,8 +3,6 @@ extends CharacterBody2D
 const SPEED = 460.0
 const JUMP_VELOCITY = -750.0
 
-@onready var game_manager: Node = %gameManager
-
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -25,7 +23,5 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func _process(delta: float):
-		if game_manager.timeUp:
-			set_physics_process(false)
+
 		

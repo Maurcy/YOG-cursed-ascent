@@ -190,3 +190,7 @@ func handle_dash(delta: float):
 	
 	if dash_timer >= DASH_DURATION:
 		is_dashing = false
+		
+func _process(delta: float):
+		if GameManager.timeUp:
+			set_physics_process(false)
