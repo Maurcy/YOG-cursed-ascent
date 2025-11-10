@@ -16,15 +16,13 @@ static func generate_level(height: int, width: int):
 	
 	for y in range(height):
 		grid.append([null, null, null])	
-		
-		# if the y == 0, then  it won't spawn dangerous rooms (room = 3)
-		var max_room = 3
-		if y == 0:
-			max_room = 2
 
 		for x in range(width):
-			var room = randi_range(1, max_room)
-			
+			var room = 1
+			# guarentees first row are safe rooms
+			if (y != 0):
+				room = randi_range(1, 3)
+				
 			# checks for spawn room coordinates, needs to be changed if we want level width to be adjustable
 			if y == 0 and x == 1 :
 				room = 0	

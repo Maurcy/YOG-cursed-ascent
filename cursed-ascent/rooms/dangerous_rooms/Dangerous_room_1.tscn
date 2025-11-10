@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bq2qmk2etxuhv"]
+[gd_scene load_steps=3 format=3 uid="uid://bq2qmk2etxuhv"]
 
 [ext_resource type="PackedScene" uid="uid://dkfyrtn0somoh" path="res://scenes/platforms/platform_spikes.tscn" id="1_sqqsx"]
+[ext_resource type="PackedScene" uid="uid://cfeylvundmdwh" path="res://scenes/platforms/platform_transparent.tscn" id="2_cdk7p"]
 
 [node name="DangerousRoom1" type="Node2D"]
 
@@ -31,9 +32,12 @@ offset_right = 724.0
 offset_bottom = -353.0
 rotation = 1.5707964
 
-[node name="Platform V2" parent="." instance=ExtResource("1_sqqsx")]
-position = Vector2(109, -55)
-
 [node name="Platform V3" parent="." instance=ExtResource("1_sqqsx")]
-position = Vector2(241, -229)
+position = Vector2(108, -285)
 scale = Vector2(-1, 1)
+
+[node name="PlatformTransparent" parent="." instance=ExtResource("2_cdk7p")]
+position = Vector2(271, -197)
+
+[node name="PlatformTransparent2" parent="." instance=ExtResource("2_cdk7p")]
+position = Vector2(269, -53)

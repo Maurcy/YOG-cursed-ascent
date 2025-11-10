@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://18xjia5pe6lx"]
+
+[ext_resource type="PackedScene" uid="uid://b1x4p1aywc4am" path="res://scenes/platforms/platform_1.tscn" id="1_0mjph"]
+[ext_resource type="PackedScene" uid="uid://cfeylvundmdwh" path="res://scenes/platforms/platform_transparent.tscn" id="2_rel7x"]
+
+[node name="SafeRoom1" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_top = -9.0
+offset_right = 362.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+visible = false
+offset_top = -362.0
+offset_right = 362.0
+offset_bottom = -353.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+offset_left = 9.0
+offset_top = -362.0
+offset_right = 371.0
+offset_bottom = -353.0
+rotation = 1.5707964
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+visible = false
+offset_left = 362.0
+offset_top = -362.0
+offset_right = 724.0
+offset_bottom = -353.0
+rotation = 1.5707964
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform V4" parent="." instance=ExtResource("1_0mjph")]
+position = Vector2(274, -194)
+scale = Vector2(-0.95659566, 3.9215193)
+
+[node name="PlatformTransparent2" parent="." instance=ExtResource("2_rel7x")]
+position = Vector2(187, -303)
+rotation = 3.1415927
+scale = Vector2(2.0082722, -1.0890009)
+
+[node name="PlatformTransparent4" parent="." instance=ExtResource("2_rel7x")]
+position = Vector2(183, -56.99997)
+rotation = 3.1415927
+scale = Vector2(2.0082722, -1.0890009)
+
+[node name="PlatformTransparent3" parent="." instance=ExtResource("2_rel7x")]
+position = Vector2(104, -187)
