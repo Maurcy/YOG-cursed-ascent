@@ -1,11 +1,12 @@
 extends CharacterBody2D
 
 @onready var extra_jump_input: TextEdit = $TextEdit
+@onready var upgrades_manager: Node = $"../UpgradesManager"
 
 @export var dash_unlocked := false
-@export var wall_jump_unlocked := true
-@export var chain_wall_jump_unlocked := true
-@export var wall_slide_unlocked := true
+@export var wall_jump_unlocked := false
+@export var chain_wall_jump_unlocked := false
+@export var wall_slide_unlocked := false
 
 @export var jump_velocity_multiplier := 1.0
 @export var wall_jump_velocity_multiplier := 1.0
@@ -59,10 +60,10 @@ var tried_wall_jump_but_failed = false
 
 func _ready():
 	Engine.time_scale = 1.0
+	
 
 
 func _physics_process(delta: float) -> void:
-	update_jump_input()
 	handle_timers(delta)
 	apply_gravity(delta)
 	handle_jump_buffer()
@@ -71,13 +72,6 @@ func _physics_process(delta: float) -> void:
 	handle_dash(delta)
 	handle_wall_slide_transition()
 	move_and_slide()
-
-
-func update_jump_input():
-	extra_jumps = extra_jump_input.text.to_int()
-	
-	if Input.is_key_pressed(KEY_TAB):
-		extra_jump_input.release_focus()
 
 
 func handle_timers(delta: float):
@@ -181,6 +175,9 @@ func do_extra_jump():
 
 
 func do_wall_jump():
+	if not wall_jump_unlocked:
+		return
+	
 	var wall_dir = get_wall_normal().x
 	
 	if not chain_wall_jump_unlocked and has_wall_jumped:

@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhcoxkffttfkr"]
+
+[ext_resource type="Script" uid="uid://drvk6skvcpq34" path="res://scripts/upgrade_ui.gd" id="1_pa06n"]
+
+[node name="UpgradeUi" type="CanvasLayer"]
+script = ExtResource("1_pa06n")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "test"
+
+[node name="Button2" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="HBoxContainer"]
+layout_mode = 2
