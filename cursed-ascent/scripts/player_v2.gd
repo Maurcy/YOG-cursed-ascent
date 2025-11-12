@@ -192,5 +192,5 @@ func handle_dash(delta: float):
 		is_dashing = false
 		
 func _process(delta: float):
-		if GameManager.timeUp:
-			set_physics_process(false)
+	if GameManager.timeUp:
+		set_physics_process(false)

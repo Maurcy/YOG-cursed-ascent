@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbu1i02krro3t"]
+[gd_scene load_steps=11 format=3 uid="uid://cbu1i02krro3t"]
 
 [ext_resource type="PackedScene" uid="uid://dnjfp8rhkq27j" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://be33afmkbqp74" path="res://assets/world_tileset.png" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://da4v0o5w6qr83" path="res://scripts/player_v2.gd" id="4_iywne"]
+[ext_resource type="Script" uid="uid://dtrsg5iyrbvjo" path="res://scripts/game_over.gd" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://busyccyttfgb4" path="res://hud.tscn" id="7_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
@@ -174,6 +175,44 @@ texture = ExtResource("1_yqjtg")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 
+[sub_resource type="Animation" id="Animation_iywne"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lbhrr"]
+resource_name = "fadeblack"
+loop_mode = 2
+step = 30.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.16666669, 1, 11),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p57ef"]
+_data = {
+&"RESET": SubResource("Animation_iywne"),
+&"fadeblack": SubResource("Animation_lbhrr")
+}
+
 [node name="Game" type="Node2D"]
 
 [node name="Temp" type="TileMap" parent="."]
@@ -193,3 +232,24 @@ limit_right = 0
 limit_bottom = 0
 
 [node name="HUD" parent="CharacterBody2D" instance=ExtResource("7_u5sy4")]
+
+[node name="Gameover" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1519.0
+offset_top = -3364.0
+offset_right = -1479.0
+offset_bottom = -3324.0
+script = ExtResource("5_iywne")
+
+[node name="GameOverScreen" type="ColorRect" parent="Gameover"]
+layout_mode = 0
+offset_right = 3358.0
+offset_bottom = 4014.0
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Gameover/GameOverScreen"]
+libraries = {
+&"": SubResource("AnimationLibrary_p57ef")
+}
