@@ -9,22 +9,4 @@ script = ExtResource("1_hwd4i")
 wait_time = 45.0
 one_shot = true
 
-[node name="Button" type="Button" parent="."]
-visible = false
-offset_left = 234.0
-offset_top = -146.0
-offset_right = 443.0
-offset_bottom = -95.0
-toggle_mode = true
-action_mode = 0
-
-[node name="Label" type="Label" parent="Button"]
-layout_mode = 0
-offset_left = 33.0
-offset_top = 14.0
-offset_right = 166.0
-offset_bottom = 37.0
-text = "Regenerate Level"
-
 [connection signal="timeout" from="levelTimer" to="." method="_on_level_timer_timeout"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

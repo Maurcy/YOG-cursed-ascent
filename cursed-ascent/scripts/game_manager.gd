@@ -1,15 +1,20 @@
 extends Node
-var levelTime = 60
+var levelTime = 300
 var remainingLevelTime
 var timeUp = false;
 var startdisplay = true;
 
 @onready var levelTimer: Timer = $levelTimer
+<<<<<<< HEAD
 @onready var gameover: Control = %Gameover
 @onready var upgrade_manager: Node = $UpgradeManager
 
 signal offer_upgrades()
 signal reset_pos(x, y)
+=======
+
+signal timeup;
+>>>>>>> 1033f276913f5ab2d7d36153f5e6e442cefce3fb
 
 const ROOM_WIDTH := 362
 const ROOM_HEIGHT := 362
@@ -21,8 +26,15 @@ var room_variants = {}
 func _ready() -> void:
 	levelTimer.wait_time = levelTime
 	remainingLevelTime = levelTime
-	
 	preload_rooms()
+
+func levelStart() -> void:
+	# for levels after the initial one, time starts immediately 
+	if (levelTimer.paused == true):
+		levelTimer.paused = false
+	
+	# goes to the game scene, and generates the level
+	get_tree().change_scene_to_file('res://scenes/game.tscn')
 	var level_layout = LevelGenerator.generate_level(6, 3)
 	generate_level(level_layout);
 
@@ -32,13 +44,28 @@ func _process(delta: float) -> void:
 		levelTimer.start()
 		startdisplay = false;
 		
+<<<<<<< HEAD
 	if levelTimer.is_stopped() == false:
+=======
+	if Input.is_action_just_pressed("jump") and timeUp == true:
+		reset()
+		get_tree().reload_current_scene()
+		
+	if levelTimer.is_stopped() == false:	
+>>>>>>> 1033f276913f5ab2d7d36153f5e6e442cefce3fb
 		remainingLevelTime = levelTimer.time_left
 
 
 func _on_level_timer_timeout() -> void:
 	timeUp = true
-	gameover.gameover()
+	timeup.emit()
+
+func reset() -> void:
+	timeUp = false;
+	remainingLevelTime = levelTime
+	startdisplay = true;
+	levelTimer.stop()
+	
 
 # Preloads rooms so the level generation knows what rooms to pick from
 func preload_rooms():
