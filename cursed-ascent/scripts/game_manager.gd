@@ -1,5 +1,5 @@
 extends Node
-var levelTime = 5
+var levelTime = 60
 var remainingLevelTime
 var timeUp = false;
 var startdisplay = true;
