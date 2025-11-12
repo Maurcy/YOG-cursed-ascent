@@ -5,16 +5,13 @@ var timeUp = false;
 var startdisplay = true;
 
 @onready var levelTimer: Timer = $levelTimer
-<<<<<<< HEAD
 @onready var gameover: Control = %Gameover
 @onready var upgrade_manager: Node = $UpgradeManager
 
 signal offer_upgrades()
 signal reset_pos(x, y)
-=======
 
 signal timeup;
->>>>>>> 1033f276913f5ab2d7d36153f5e6e442cefce3fb
 
 const ROOM_WIDTH := 362
 const ROOM_HEIGHT := 362
@@ -44,15 +41,11 @@ func _process(delta: float) -> void:
 		levelTimer.start()
 		startdisplay = false;
 		
-<<<<<<< HEAD
-	if levelTimer.is_stopped() == false:
-=======
 	if Input.is_action_just_pressed("jump") and timeUp == true:
 		reset()
 		get_tree().reload_current_scene()
 		
-	if levelTimer.is_stopped() == false:	
->>>>>>> 1033f276913f5ab2d7d36153f5e6e442cefce3fb
+	if levelTimer.is_stopped() == false:
 		remainingLevelTime = levelTimer.time_left
 
 
@@ -129,11 +122,22 @@ func _on_button_pressed() -> void:
 	var level_layout = LevelGenerator.generate_level(6, 3)
 	generate_level(level_layout); 
 
+func decrease_timer(amount):
+	levelTimer.wait_time = levelTimer.wait_time - amount
+	if levelTimer.is_stopped() == false:
+		levelTimer.start()
+
+func pause_timer():
+	levelTimer.paused = true
+	
+func start_timer():
+	levelTimer.paused = false
+
 # pause timer and other stuff for level exit	
 func levelexit() -> void:
-	Engine.time_scale = 0.0
 	emit_signal("offer_upgrades")
-	levelTimer.paused = true;
+	Engine.time_scale = 0.0
+	pause_timer()
 	clear_level()
 	var level_layout = LevelGenerator.generate_level(7, 3)
 	generate_level(level_layout)
