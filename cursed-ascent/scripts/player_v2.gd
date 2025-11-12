@@ -76,6 +76,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
+func update_jump_input():
+	# temp uit gecomment
+	# extra_jumps = extra_jump_input.text.to_int()
+	
+	if Input.is_key_pressed(KEY_TAB):
+		extra_jump_input.release_focus()
+
+
 func handle_timers(delta: float):
 	if not is_on_floor():
 		coyote_time_timer += delta
@@ -257,3 +265,7 @@ func handle_dash(delta: float):
 	
 	if dash_timer >= dash_duration:
 		is_dashing = false
+		
+func _process(delta: float):
+	if GameManager.timeUp:
+		set_physics_process(false)
