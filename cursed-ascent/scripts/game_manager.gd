@@ -29,6 +29,10 @@ func _process(delta: float) -> void:
 		levelTimer.start()
 		startdisplay = false;
 		
+	if Input.is_action_just_pressed("jump") and timeUp == true:
+		reset()
+		get_tree().reload_current_scene()
+		
 	if levelTimer.is_stopped() == false:	
 		remainingLevelTime = levelTimer.time_left
 
@@ -36,6 +40,13 @@ func _process(delta: float) -> void:
 func _on_level_timer_timeout() -> void:
 	timeUp = true
 	timeup.emit()
+
+func reset() -> void:
+	timeUp = false;
+	remainingLevelTime = levelTime
+	startdisplay = true;
+	levelTimer.stop()
+	
 
 # Preloads rooms so the level generation knows what rooms to pick from
 func preload_rooms():
