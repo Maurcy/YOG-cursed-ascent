@@ -3,14 +3,18 @@ extends CanvasLayer
 @onready var levelTimerDisplay: Label = $Control/levelTimerDisplay
 @onready var game_start_text: Label = $Control/gameStartText
 @onready var gameover: Label = $Control/Gameover
+@onready var gameoverlevels: Label = $Control/Gameoverlevels
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GameManager.timeup.connect(_on_time_up)
 	gameover.visible = false;
+	gameoverlevels.visible = false;
 
 func _on_time_up() -> void:
 	gameover.visible = true;
+	gameoverlevels.visible = true;
+	gameoverlevels.text = "You've completed " + str(GameManager.completedLevels) + " levels"
 
 # time handler.
 func _process(delta: float):

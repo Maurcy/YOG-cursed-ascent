@@ -64,6 +64,25 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 80
 text = "Game over!
+
 Jump to restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Gameoverlevels" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -442.0
+offset_top = 242.0
+offset_right = 445.0
+offset_bottom = 352.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 80
+text = "
+You've completed 0 levels"
 horizontal_alignment = 1
 vertical_alignment = 1
