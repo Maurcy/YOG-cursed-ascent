@@ -3,20 +3,21 @@ extends CharacterBody2D
 @onready var extra_jump_input: TextEdit = $TextEdit
 @onready var upgrades_manager: Node = $"../UpgradesManager"
 
-@export var dash_unlocked := false
-@export var wall_jump_unlocked := false
-@export var chain_wall_jump_unlocked := false
-@export var wall_slide_unlocked := false
+var dash_unlocked := false
+var wall_jump_unlocked := false
+var chain_wall_jump_unlocked := false
+var wall_slide_unlocked := false
 
-@export var jump_velocity_multiplier := 1.0
-@export var wall_jump_velocity_multiplier := 1.0
-@export var horizontal_speed_multiplier := 1.0
-@export var slow_falling_multiplier := 10.0
+var jump_velocity_multiplier := 1.0
+var wall_jump_velocity_multiplier := 1.0
+var horizontal_speed_multiplier := 1.0
+var slow_falling_multiplier := 1.0
+var floaty_jump_multiplier := 1.0
 
 const SPEED = 500.0
-const ACCELERATION = 2000.0
+var acceleration = 2000.0
 const DECELERATION = 1500.0
-const BRAKE_ACCELERATION = 4000.0
+var brake_acceleration = 4000.0
 
 const GRAVITY = 3000.0
 const JUMP_GRAVITY_MULTIPLIER = 0.7
@@ -25,7 +26,7 @@ const HANG_VELOCITY_THRESHOLD = 40.0
 const FALL_GRAVITY_MULTIPLIER = 1.8
 
 const JUMP_VELOCITY = -1000.0
-const JUMP_CUT_MULTIPLIER = 0.4
+var JUMP_CUT_MULTIPLIER = 0.4
 const COYOTE_TIME_WINDOW = 0.1
 const JUMP_BUFFER_WINDOW = 0.1
 
@@ -35,10 +36,11 @@ var extra_jumps := 0
 var available_extra_jumps := 0
 
 const DASH_SPEED = 1400.0
-const DASH_DURATION = 0.05
+var dash_speed_multiplier := 1.0
+var dash_duration = 0.05
 const DASH_CONTROL_LOCK = 0.03
 const DASH_DECEL_RATE = 10000.0
-const DASH_COOLDOWN = 1.0
+var dash_cooldown = 1.0
 
 var is_dashing := false
 var dash_dir := 0
@@ -101,7 +103,7 @@ func apply_gravity(delta: float):
 		if abs(velocity.y) < HANG_VELOCITY_THRESHOLD:
 			gravity_force *= HANG_GRAVITY_MULTIPLIER
 		else:
-			gravity_force *= JUMP_GRAVITY_MULTIPLIER
+			gravity_force *= JUMP_GRAVITY_MULTIPLIER * floaty_jump_multiplier
 	else:
 		gravity_force *= FALL_GRAVITY_MULTIPLIER
 		if Input.is_action_pressed("jump"):
@@ -210,9 +212,9 @@ func get_acceleration(delta: float, direction: float) -> float:
 		return DECELERATION * delta * horizontal_speed_multiplier
 	
 	if sign(direction) != sign(velocity.x):
-		return BRAKE_ACCELERATION * delta * horizontal_speed_multiplier
+		return brake_acceleration * delta * (horizontal_speed_multiplier * 2)
 	
-	return ACCELERATION * delta * horizontal_speed_multiplier
+	return acceleration * delta * horizontal_speed_multiplier
 
 
 func _input(_event):
@@ -230,7 +232,7 @@ func _start_dash():
 	if dash_cooldown_timer > 0.0:
 		return
 	
-	dash_cooldown_timer = DASH_COOLDOWN
+	dash_cooldown_timer = dash_cooldown
 	
 	var direction := Input.get_axis("moveLeft", "moveRight")
 	
@@ -241,7 +243,7 @@ func _start_dash():
 	
 	is_dashing = true
 	dash_timer = 0.0
-	velocity.x = dash_dir * DASH_SPEED
+	velocity.x = dash_dir * DASH_SPEED * dash_speed_multiplier
 
 
 func handle_dash(delta: float):
@@ -251,7 +253,7 @@ func handle_dash(delta: float):
 	dash_timer += delta
 	
 	if dash_timer >= DASH_CONTROL_LOCK:
-		velocity.x = move_toward(velocity.x, 0, DASH_DECEL_RATE * delta)
+		velocity.x = move_toward(velocity.x, 0, DASH_DECEL_RATE * dash_speed_multiplier * delta)
 	
-	if dash_timer >= DASH_DURATION:
+	if dash_timer >= dash_duration:
 		is_dashing = false
