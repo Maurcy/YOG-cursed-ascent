@@ -4,6 +4,8 @@ var remainingLevelTime
 var timeUp = false;
 var startdisplay = true;
 var completedLevels = 0;
+# to prevent the players inputs from title transition immediately taking effect
+var inputLock = true
 
 @onready var levelTimer: Timer = $levelTimer
 @onready var gameover: Control = %Gameover
@@ -31,16 +33,19 @@ func levelStart() -> void:
 	get_tree().change_scene_to_file('res://scenes/game.tscn')
 	var level_layout = LevelGenerator.generate_level(6, 3)
 	generate_level(level_layout);
+	inputLock = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("jump") and levelTimer.is_stopped() and timeUp == false:
+	if Input.is_action_just_pressed("jump") and levelTimer.is_stopped() and timeUp == false and inputLock == false:
 		levelTimer.start()
 		startdisplay = false;
 		
 	if Input.is_action_just_pressed("jump") and timeUp == true:
 		reset()
 		get_tree().reload_current_scene()
+		# prevents the game from immediately starting
+		get_viewport().set_input_as_handled()
 		
 	
 	if levelTimer.is_stopped() == false:
