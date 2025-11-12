@@ -3,6 +3,7 @@
 [node name="Platform V2" type="StaticBody2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -16,4 +17,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(80, -15, 80, -9, 60, 15, -60, 15, -80, -9, -80, -15)
+position = Vector2(0, 16)
+polygon = PackedVector2Array(87, -16, 87, -9, 75, 6, -75, 6, -87, -9, -87, -16)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD9/wAAAAAAAAAAAAACAAAAAAACAAAAAAABAAAAAAABAAAAAAAAAAAAAAABAAAAAAD//wAAAAABAAAAAAD+/wAAAAABAAAAAAA=")
+tile_set = SubResource("TileSet_bv5gb")
