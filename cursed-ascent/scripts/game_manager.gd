@@ -1,12 +1,12 @@
 extends Node
-var levelTime = 60
+var levelTime = 5
 var remainingLevelTime
 var timeUp = false;
 var startdisplay = true;
 
 @onready var levelTimer: Timer = $levelTimer
-@onready var gameover: Control = %Gameover
 
+signal timeup;
 
 const ROOM_WIDTH := 362
 const ROOM_HEIGHT := 362
@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 
 func _on_level_timer_timeout() -> void:
 	timeUp = true
-	gameover.gameover()
+	timeup.emit()
 
 # Preloads rooms so the level generation knows what rooms to pick from
 func preload_rooms():

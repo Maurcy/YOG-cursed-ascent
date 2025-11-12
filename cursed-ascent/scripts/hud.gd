@@ -2,12 +2,17 @@ extends CanvasLayer
 
 @onready var levelTimerDisplay: Label = $Control/levelTimerDisplay
 @onready var game_start_text: Label = $Control/gameStartText
+@onready var gameover: Label = $Control/Gameover
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	GameManager.timeup.connect(_on_time_up)
+	gameover.visible = false;
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _on_time_up() -> void:
+	gameover.visible = true;
+
+# time handler.
 func _process(delta: float):
 	# if there's only less than a minute, starts displaying miliseconds
 	if GameManager.remainingLevelTime <= 60:
