@@ -6,7 +6,10 @@ var startdisplay = true;
 
 @onready var levelTimer: Timer = $levelTimer
 @onready var gameover: Control = %Gameover
+@onready var upgrade_manager: Node = $UpgradeManager
 
+signal offer_upgrades()
+signal reset_pos(x, y)
 
 const ROOM_WIDTH := 362
 const ROOM_HEIGHT := 362
@@ -29,7 +32,7 @@ func _process(delta: float) -> void:
 		levelTimer.start()
 		startdisplay = false;
 		
-	if levelTimer.is_stopped() == false:	
+	if levelTimer.is_stopped() == false:
 		remainingLevelTime = levelTimer.time_left
 
 
@@ -101,5 +104,16 @@ func _on_button_pressed() -> void:
 
 # pause timer and other stuff for level exit	
 func levelexit() -> void:
-	# go to shop scene
+	Engine.time_scale = 0.0
+	emit_signal("offer_upgrades")
 	levelTimer.paused = true;
+	clear_level()
+	var level_layout = LevelGenerator.generate_level(7, 3)
+	generate_level(level_layout)
+	emit_signal("reset_pos", 4.0, -50.0)
+
+func clear_level():
+	for child in get_children():
+		# Skip nodes that shouldn't be deleted (like UI, timers, managers)
+		if child != levelTimer and child != gameover and child != upgrade_manager:
+			child.queue_free()

@@ -11,7 +11,7 @@ func _ready():
 func show_upgrades(upgrades: Array):
 	current_upgrades = upgrades
 	show()
-
+	
 	var buttons = get_node("HBoxContainer").get_children()
 	for i in range(buttons.size()):
 		var button = buttons[i]

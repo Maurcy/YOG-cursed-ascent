@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 @onready var extra_jump_input: TextEdit = $TextEdit
-@onready var upgrades_manager: Node = $"../UpgradesManager"
 
 var dash_unlocked := false
 var wall_jump_unlocked := false
@@ -62,7 +61,11 @@ var tried_wall_jump_but_failed = false
 
 func _ready():
 	Engine.time_scale = 1.0
-	
+	GameManager.reset_pos.connect(reset_pos)
+
+
+func reset_pos(x,y):
+	position = Vector2(x, y)
 
 
 func _physics_process(delta: float) -> void:

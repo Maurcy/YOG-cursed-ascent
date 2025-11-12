@@ -2,8 +2,8 @@ extends Node
 
 signal show_upgrade_ui(upgrade_options: Array)
 
-var extra_jumps := 0
 var acquired_upgrades := []   # track all taken upgrades
+var upgrade_lock := false
 
 # === UPGRADE LIST ===
 var all_upgrades = [
@@ -25,8 +25,16 @@ var all_upgrades = [
 	#{"name": "quick hops", "desc": "Shortens jump duration but increases horizontal speed", "needs": "!floaty jump", "infinite": false}
 ]
 
+func _ready():
+	GameManager.offer_upgrades.connect(offer_upgrades)
+
 
 func offer_upgrades():
+	if upgrade_lock:
+		return
+	
+	upgrade_lock = true
+	
 	var valid_upgrades = _get_valid_upgrades()
 	if valid_upgrades.is_empty():
 		return
@@ -36,12 +44,15 @@ func offer_upgrades():
 
 
 func apply_upgrade(upgrade):
+	upgrade_lock = false
+	Engine.time_scale = 1.0
+	
 	var upgrade_name = upgrade["name"]
 	if not upgrade["infinite"] and upgrade_name in acquired_upgrades:
 		return
 
 	acquired_upgrades.append(upgrade_name)
-	var player = get_parent().get_node("Player")
+	var player = get_parent().get_node("CharacterBody2D")
 
 	match upgrade_name:
 		"wall jump": # works
@@ -78,11 +89,6 @@ func apply_upgrade(upgrade):
 		"quick hops":
 			player.JUMP_CUT_MULTIPLIER *= 0.5
 			player.horizontal_speed_multiplier += 0.1
-
-
-func add_jump(amount):
-	extra_jumps += amount
-	emit_signal("update_jumps", extra_jumps)
 
 
 func _get_valid_upgrades() -> Array:
