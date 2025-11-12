@@ -1,5 +1,5 @@
 extends Node
-var levelTime = 5
+var levelTime = 300
 var remainingLevelTime
 var timeUp = false;
 var startdisplay = true;
@@ -18,8 +18,15 @@ var room_variants = {}
 func _ready() -> void:
 	levelTimer.wait_time = levelTime
 	remainingLevelTime = levelTime
-	
 	preload_rooms()
+
+func levelStart() -> void:
+	# for levels after the initial one, time starts immediately 
+	if (levelTimer.paused == true):
+		levelTimer.paused = false
+	
+	# goes to the game scene, and generates the level
+	get_tree().change_scene_to_file('res://scenes/game.tscn')
 	var level_layout = LevelGenerator.generate_level(6, 3)
 	generate_level(level_layout);
 
