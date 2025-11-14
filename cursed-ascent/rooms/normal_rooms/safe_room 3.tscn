@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://l3rexndot48f"]
+
+[ext_resource type="PackedScene" uid="uid://cfeylvundmdwh" path="res://scenes/platforms/platform_transparent.tscn" id="1_2d2pg"]
+
+[node name="SafeRoom1" type="Node2D"]
+
+[node name="PlatformTransparent" parent="." instance=ExtResource("1_2d2pg")]
+position = Vector2(177, -85)
+
+[node name="PlatformTransparent2" parent="." instance=ExtResource("1_2d2pg")]
+position = Vector2(177, -266)

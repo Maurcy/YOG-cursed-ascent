@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://goftnmuj8iye"]
+
+[ext_resource type="Script" uid="uid://qb6lsqm042jp" path="res://scripts/game_manager.gd" id="1_hwd4i"]
+
+[node name="gameManager" type="Node"]
+script = ExtResource("1_hwd4i")
+
+[node name="levelTimer" type="Timer" parent="."]
+wait_time = 45.0
+one_shot = true
+
+[connection signal="timeout" from="levelTimer" to="." method="_on_level_timer_timeout"]

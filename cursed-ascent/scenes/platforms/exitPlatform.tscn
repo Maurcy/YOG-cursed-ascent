@@ -4,6 +4,7 @@
 size = Vector2(1087, 40)
 
 [node name="exitPlatform" type="StaticBody2D"]
+position = Vector2(-67, -1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -477.0

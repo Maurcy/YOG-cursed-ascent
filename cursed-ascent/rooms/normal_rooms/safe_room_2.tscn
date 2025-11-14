@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://do45xqggv2urx"]
+
+[ext_resource type="PackedScene" uid="uid://b1x4p1aywc4am" path="res://scenes/platforms/platform_1.tscn" id="1_kesfr"]
+
+[node name="SafeRoom1" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_top = -9.0
+offset_right = 362.0
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+visible = false
+offset_top = -362.0
+offset_right = 362.0
+offset_bottom = -353.0
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+offset_left = 9.0
+offset_top = -362.0
+offset_right = 371.0
+offset_bottom = -353.0
+rotation = 1.5707964
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+visible = false
+offset_left = 362.0
+offset_top = -362.0
+offset_right = 724.0
+offset_bottom = -353.0
+rotation = 1.5707964
+
+[node name="Platform V2" parent="." instance=ExtResource("1_kesfr")]
+position = Vector2(176, -188)
