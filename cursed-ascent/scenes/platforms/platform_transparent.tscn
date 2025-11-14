@@ -6,7 +6,7 @@
 position = Vector2(-107, -14)
 
 [node name="ColorRect" parent="." index="0"]
-color = Color(1, 1, 1, 0.22352941)
+color = Color(1, 1, 1, 0.47058824)
 
 [node name="CollisionShape2D" parent="." index="1"]
 one_way_collision = true
