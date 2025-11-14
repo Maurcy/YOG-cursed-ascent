@@ -7,7 +7,6 @@ var current_upgrades := []
 func _ready():
 	hide()
 
-
 func show_upgrades(upgrades: Array):
 	current_upgrades = upgrades
 	show()
